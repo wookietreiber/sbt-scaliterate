@@ -1,0 +1,41 @@
+For the first release, here is an example project on how to create a compilable programming book with sbt-scaliterate:
+
+```
+$ tree
+.
+├── project
+│   └── scaliterate.sbt
+└── src.scala.md
+
+1 directory, 2 files
+```
+
+Add **sbt-scaliterate** as an sbt plugin to `project/scaliterate.sbt`:
+
+```scala
+addSbtPlugin("com.github.wookietreiber" % "sbt-scaliterate" % "0.1.0")
+```
+
+You need to have a **single** Markdown file, your *programming book*. The default name of this file is simply called `src.scala.md`. It resides directly in your projects base directory.
+
+    % Hello World
+    
+    # A Beginners Program
+    
+    Saying **Hello, world!** is very common when learning a new language.
+    
+    Here is how to do it in [Scala](http://scala-lang.org/):
+    
+    ```scala
+    package hello
+    
+    object Hello extends App {
+      println("Hello, world!")
+    }
+    ```
+
+The fenced Scala code blocks are automatically extracted from this Markdown file and compiled with sbt's `compile` task. Thus, to compile the project, simply type:
+
+```
+sbt compile
+```
