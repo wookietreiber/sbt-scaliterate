@@ -46,6 +46,12 @@ The fenced Scala code blocks are automatically extracted from this Markdown file
 sbt compile
 ```
 
+To generate the programming book with [pandoc][] type:
+
+```
+sbt scaliteratePandocPDF
+```
+
 ## Configuration
 
 The default name of the *programming book* Markdown source can be set via:
@@ -54,21 +60,16 @@ The default name of the *programming book* Markdown source can be set via:
 scaliterateSource := baseDirectory.value / "some-other-name.md"
 ```
 
-**Note:** There is no support yet to convert the Markdown source to other formats *directly from within sbt*. Personally, I recommend using [pandoc](http://pandoc.org/) as an external tool for its excellent TeX and e-book outputs, e.g. for a high quality PDF:
+To modify the options used by [pandoc][], e.g. to change the default fonts:
 
+```scala
+scaliteratePandocPDFOptions in Compile ++= Seq (
+  "-V", "mainfont=Droid Serif",
+  "-V", "sansfont=Droid Sans",
+  "-V", "monofont=Droid Sans Mono Slashed"
+)
 ```
-pandoc                       \
-  --standalone               \
-  --table-of-contents        \
-  --number-sections          \
-  --latex-engine=xelatex     \
-  -V documentclass=report    \
-  -V linkcolor=blue          \
-  -V geometry='left=24.1mm'  \
-  -V geometry='right=24.1mm' \
-  -V geometry='bottom=4.5cm' \
-  -V fontsize=10pt           \
-  -V papersize=a4paper       \
-  -o src.scala.pdf           \
-  src.scala.md
-```
+
+**Note:** Spaces, as with the example above in the font name, do not need to be escaped, however, the `-V` and its argument need to be separated (`ProcessBuilder` semantics ...)!
+
+[pandoc]: http://pandoc.org/

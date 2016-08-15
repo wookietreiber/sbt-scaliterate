@@ -11,6 +11,8 @@ object ScaliteratePlugin extends AutoPlugin {
   object autoImport {
     lazy val scaliterate = taskKey[Seq[File]]("Generates Scala sources from Markdown files.")
     lazy val scaliterateSource = settingKey[File]("Input file for scaliterate.")
+    lazy val scaliteratePandocPDF = taskKey[File]("Generates the programming book (PDF) with pandoc.")
+    lazy val scaliteratePandocPDFOptions = settingKey[Seq[String]]("Pandoc options to use when generating the programming book.")
 
     lazy val baseScaliterateSettings: Seq[Def.Setting[_]] = Seq (
       /* markdown source */
@@ -36,7 +38,41 @@ object ScaliteratePlugin extends AutoPlugin {
       watchSources in Defaults.ConfigGlobal += scaliterateSource.value,
 
       /* append to other source generators */
-      sourceGenerators in Compile += scaliterate.taskValue
+      sourceGenerators in Compile += scaliterate.taskValue,
+
+      /* use pandoc to generate programming book */
+      scaliteratePandocPDF := {
+        val log = streams.value.log
+
+        val pdf = target.value / (name.value + ".pdf")
+
+        val cmd: List[String] = List("pandoc") :::
+          scaliteratePandocPDFOptions.value.toList :::
+          List("-o", pdf.toString, scaliterateSource.value.toString)
+
+        log.debug(s"""[scaliterate] ${cmd.mkString(" ")}""")
+
+        cmd ! log
+
+        log.debug(s"""[scaliterate] wrote $pdf""")
+
+        pdf
+      },
+
+      /* sensible, default pandoc options */
+      scaliteratePandocPDFOptions := Seq (
+        "--standalone",
+	      "--table-of-contents",
+	      "--number-sections",
+	      "--latex-engine=xelatex",
+	      "-V", "documentclass=report",
+	      "-V", "linkcolor=blue",
+	      "-V", "geometry=left=24.1mm",
+	      "-V", "geometry=right=24.1mm",
+	      "-V", "geometry=bottom=4.5cm",
+	      "-V", "fontsize=10pt",
+	      "-V", "papersize=a4paper"
+      )
     )
   }
 
