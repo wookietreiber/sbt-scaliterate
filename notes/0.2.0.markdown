@@ -1,0 +1,11 @@
+Adds PDF generation via the new pandoc task:
+
+    sbt scaliteratePandocPDF
+
+This task can be configured via:
+
+    scaliteratePandocPDFOptions in Compile ++= Seq (
+      "-V", "mainfont=Droid Serif",
+      "-V", "sansfont=Droid Sans",
+      "-V", "monofont=Droid Sans Mono Slashed"
+    )
