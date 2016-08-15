@@ -14,7 +14,7 @@ object ScaliteratePlugin extends AutoPlugin {
 
     lazy val baseScaliterateSettings: Seq[Def.Setting[_]] = Seq (
       /* markdown source */
-      scaliterateSource := baseDirectory.value / "src.scala.md",
+      scaliterateSource := baseDirectory.value / (name.value + ".md"),
 
       /* main task to generate Scala code from markdown code blocks */
       scaliterate := {

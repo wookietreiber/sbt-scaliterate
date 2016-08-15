@@ -4,23 +4,25 @@
 
 ## Example Project
 
+Suppose a project called **hello** with the following layout:
+
 ```
-$ tree
-.
-├── project
-│   └── scaliterate.sbt
-└── src.scala.md
+$ tree hello
+hello/
+├── hello.md
+└── project
+    └── scaliterate.sbt
 
 1 directory, 2 files
 ```
 
-Add **sbt-scaliterate** as an sbt plugin to `project/scaliterate.sbt`:
+First of all, **sbt-scaliterate** is added to the build as a plugin in `project/scaliterate.sbt`:
 
 ```scala
-addSbtPlugin("com.github.wookietreiber" % "sbt-scaliterate" % "0.1.0")
+addSbtPlugin("com.github.wookietreiber" % "sbt-scaliterate" % "0.2.0")
 ```
 
-You need to have a **single** Markdown file, your *programming book*. The default name of this file is simply called `src.scala.md`. It resides directly in your projects base directory.
+Furthermore, you need to have a **single** Markdown file, your *programming book*. The default name of this file is your projects name with the `.md` suffix, in our case the project name is `hello`, thus our Markdown file is name `hello.md`. It resides directly in your projects base directory. Its content is:
 
     % Hello World
     
@@ -48,8 +50,8 @@ sbt compile
 
 The default name of the *programming book* Markdown source can be set via:
 
-```
-scaliterateSource := baseDirectory.value / "src.scala.md"
+```scala
+scaliterateSource := baseDirectory.value / "some-other-name.md"
 ```
 
 **Note:** There is no support yet to convert the Markdown source to other formats *directly from within sbt*. Personally, I recommend using [pandoc](http://pandoc.org/) as an external tool for its excellent TeX and e-book outputs, e.g. for a high quality PDF:

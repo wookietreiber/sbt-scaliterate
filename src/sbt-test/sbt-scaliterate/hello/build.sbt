@@ -1,11 +1,9 @@
 lazy val check = taskKey[Unit]("check")
 
-name := "hello"
-
 scalaVersion := "2.11.8"
 
-check <<= (sourceManaged in Compile) map { (dir) =>
-  val f = dir / "hello.scala"
+check := {
+  val f = (sourceManaged in Compile).value / (name.value + ".scala")
   val lines = scala.io.Source.fromFile(f).getLines.toList
   if (!(lines sameElements
           """|package hello
