@@ -1,0 +1,1 @@
+Updates this sbt plugin to sbt 1.0.

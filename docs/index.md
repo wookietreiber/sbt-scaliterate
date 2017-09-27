@@ -19,7 +19,7 @@ hello/
 First of all, **sbt-scaliterate** is added to the build as a plugin in `project/scaliterate.sbt`:
 
 ```scala
-addSbtPlugin("com.github.wookietreiber" % "sbt-scaliterate" % "0.2.0")
+addSbtPlugin("com.github.wookietreiber" % "sbt-scaliterate" % "0.3.0")
 ```
 
 Furthermore, you need to have a **single** Markdown file, your *programming book*. The default name of this file is your projects name with the `.md` suffix, in our case the project name is `hello`, thus our Markdown file is name `hello.md`. It resides directly in your projects base directory. Its content is:
