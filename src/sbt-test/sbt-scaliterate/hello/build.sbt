@@ -1,6 +1,6 @@
 lazy val check = taskKey[Unit]("check")
 
-scalaVersion := "2.11.8"
+scalaVersion := "2.12.3"
 
 check := {
   val f = (sourceManaged in Compile).value / (name.value + ".scala")

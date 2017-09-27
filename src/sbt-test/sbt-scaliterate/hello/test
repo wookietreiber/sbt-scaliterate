@@ -1,5 +1,5 @@
 > compile
-$ exists target/scala-2.11/src_managed/main/hello.scala
+$ exists target/scala-2.12/src_managed/main/hello.scala
 > scaliteratePandocPDF
 $ exists target/hello.pdf
 > check

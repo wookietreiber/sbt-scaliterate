@@ -1,5 +1,6 @@
 package scaliterate
 
+import scala.sys.process._
 import sbt._
 import Keys._
 
@@ -35,6 +36,7 @@ object ScaliteratePlugin extends AutoPlugin {
       },
 
       /* watch markdown */
+      watchSources += baseDirectory.value / "demo" / "examples.txt",
       watchSources in Defaults.ConfigGlobal += scaliterateSource.value,
 
       /* append to other source generators */
@@ -62,16 +64,16 @@ object ScaliteratePlugin extends AutoPlugin {
       /* sensible, default pandoc options */
       scaliteratePandocPDFOptions := Seq (
         "--standalone",
-	      "--table-of-contents",
-	      "--number-sections",
-	      "--latex-engine=xelatex",
-	      "-V", "documentclass=report",
-	      "-V", "linkcolor=blue",
-	      "-V", "geometry=left=24.1mm",
-	      "-V", "geometry=right=24.1mm",
-	      "-V", "geometry=bottom=4.5cm",
-	      "-V", "fontsize=10pt",
-	      "-V", "papersize=a4paper"
+        "--table-of-contents",
+        "--number-sections",
+        "--latex-engine=xelatex",
+        "-V", "documentclass=report",
+        "-V", "linkcolor=blue",
+        "-V", "geometry=left=24.1mm",
+        "-V", "geometry=right=24.1mm",
+        "-V", "geometry=bottom=4.5cm",
+        "-V", "fontsize=10pt",
+        "-V", "papersize=a4paper"
       )
     )
   }
